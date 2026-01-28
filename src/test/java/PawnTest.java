@@ -1,93 +1,28 @@
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.Arguments;
 
-class PawnTest {
+class PawnTest extends PieceTestTemplate {
 
-  public static final String INVALID_MOVE_MESSAGE = "Invalid move for the piece.";
-  private Pawn cut;
-
-  @BeforeEach
-  void setup() {
-    this.cut = new Pawn(Color.WHITE, 1, 0, new Board());
+  static Stream<Arguments> getTestCases() {
+    return Stream.of(
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(2, 0, true))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(3, 0, true))),
+        Arguments.of(
+            pieceSupplier(Color.WHITE, 1, 0),
+            List.of(new Movement(2, 0, true), new Movement(3, 0, true))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(1, 1, false))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(1, -1, false))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(0, 0, false))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(4, 0, false))),
+        Arguments.of(
+            pieceSupplier(Color.WHITE, 1, 0),
+            List.of(new Movement(3, 0, true), new Movement(5, 0, false))));
   }
 
-  @Test
-  void firstMoveForwardOneSquare() {
-    whenMovingTo(2, 0);
-
-    thenPositionIs(2, 0);
-  }
-
-  @Test
-  void firstMoveForwardTwoSquares() {
-    whenMovingTo(3, 0);
-
-    thenPositionIs(3, 0);
-  }
-
-  @Test
-  void secondMoveForwardOneSquare() {
-    whenMovingTo(2, 0);
-    whenMovingTo(3, 0);
-
-    thenPositionIs(3, 0);
-  }
-
-  @Test
-  void moveLeft() {
-    final var exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              whenMovingTo(1, 1);
-            });
-
-    assertEquals("Invalid move for the piece.", exception.getMessage());
-
-    thenPositionIs(1, 0);
-  }
-
-  @Test
-  void moveRight() {
-    final var exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              whenMovingTo(1, -1);
-            });
-    assertEquals(INVALID_MOVE_MESSAGE, exception.getMessage());
-  }
-
-  @Test
-  void moveBackward() {
-    final var exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              whenMovingTo(0, 0);
-            });
-    assertEquals("Invalid move for the piece.", exception.getMessage());
-  }
-
-  @Test
-  void moveMoreThanTwoSquaresForwardOnFirstMove() {
-    final var exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              whenMovingTo(4, 0);
-            });
-    assertEquals("Invalid move for the piece.", exception.getMessage());
-  }
-
-  private void whenMovingTo(int rank, int file) {
-    cut.moveTo(rank, file);
-  }
-
-  private void thenPositionIs(int expectedRank, int expectedFile) {
-    assertEquals(expectedRank, cut.getCurrentRank());
-    assertEquals(expectedFile, cut.getCurrentFile());
+  private static Supplier<Piece> pieceSupplier(Color color, int initialRank, int initialFile) {
+    return () -> new Pawn(color, initialRank, initialFile, new Board());
   }
 }
