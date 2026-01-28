@@ -1,9 +1,9 @@
-import org.junit.jupiter.params.provider.Arguments;
-
 import java.util.List;
 import java.util.function.Supplier;
-
 import java.util.stream.Stream;
+
+import org.junit.jupiter.params.provider.Arguments;
+
 class BishopTest extends PieceTestTemplate {
 
   static Stream<Arguments> getTestCases() {
@@ -31,5 +31,4 @@ class BishopTest extends PieceTestTemplate {
   private static Supplier<Piece> pieceSupplier(Color color, int rank, int file) {
     return () -> new Bishop(color, rank, file, new Board());
   }
-
 }

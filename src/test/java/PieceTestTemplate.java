@@ -12,8 +12,7 @@ import lombok.Value;
 
 abstract class PieceTestTemplate {
 
-  private static final String INVALID_MOVE_MESSAGE_TEMPLATE =
-          "Invalid move from %dx%d to %dx%d";
+  private static final String INVALID_MOVE_MESSAGE_TEMPLATE = "Invalid move from %dx%d to %dx%d";
   protected Piece cut;
 
   @Value
@@ -50,8 +49,13 @@ abstract class PieceTestTemplate {
         final var exception =
             assertThrows(
                 IllegalArgumentException.class,
-                () -> whenMovingTo(movement.target.rank, movement.target.file));
-        assertEquals(INVALID_MOVE_MESSAGE_TEMPLATE.formatted(currentRank, currentFile, movement.target.rank, movement.target.file), exception.getMessage());
+                () -> whenMovingTo(movement.target.rank, movement.target.file),
+                "Expected move to %dx%d to be invalid"
+                    .formatted(movement.target.rank, movement.target.file));
+        assertEquals(
+            INVALID_MOVE_MESSAGE_TEMPLATE.formatted(
+                currentRank, currentFile, movement.target.rank, movement.target.file),
+            exception.getMessage());
         thenPositionIs(currentRank, currentFile);
       }
     }
@@ -66,7 +70,9 @@ abstract class PieceTestTemplate {
   }
 
   private void thenPositionIs(int expectedRank, int expectedFile) {
-    assertAll("should be at %dx%d".formatted(expectedRank, expectedFile), () -> assertEquals(expectedRank, cut.getCurrentRank()),
-            () -> assertEquals(expectedFile, cut.getCurrentFile()));
+    assertAll(
+        "should be at %dx%d".formatted(expectedRank, expectedFile),
+        () -> assertEquals(expectedRank, cut.getCurrentRank()),
+        () -> assertEquals(expectedFile, cut.getCurrentFile()));
   }
 }
