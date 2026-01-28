@@ -9,7 +9,7 @@ public class Knight extends Piece {
     int rankDiff = Math.abs(rank - getCurrentRank());
     int fileDiff = Math.abs(file - getCurrentFile());
 
-    if(rankDiff == 2 && fileDiff == 1) {
+    if (rankDiff == 2 && fileDiff == 1) {
       return true;
     }
 
