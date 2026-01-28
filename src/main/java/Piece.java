@@ -13,7 +13,7 @@ public abstract class Piece {
 
   protected void moveTo(int rank, int file) {
     if (!canMoveTo(rank, file)) {
-      throw new IllegalArgumentException("Invalid move for the piece.");
+      throw new IllegalArgumentException("Invalid move from %dx%d to %dx%d".formatted(currentRank, currentFile, rank, file));
     }
     this.currentRank = rank;
     this.currentFile = file;
