@@ -8,64 +8,97 @@ class RookTest extends PieceTestTemplate {
 
   static Stream<Arguments> getTestCases() {
     return Stream.of(
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 3, 3),
+        basicMovementWhiteRook(),
+        basicMovementBlackRook(),
+        sameColorBlocking(),
+        differentColorCapture());
+  }
+
+  private static Arguments basicMovementWhiteRook() {
+    return Arguments.of(
+        pieceSupplier(Color.WHITE, 3, 3, List.of()),
+        List.of(
+            new Movement(5, 3, true),
+            new Movement(6, 3, true),
+            new Movement(6, 0, true),
+            new Movement(0, 0, true),
+            new Movement(2, 4, false),
+            new Movement(4, 5, false)));
+  }
+
+  private static Arguments basicMovementBlackRook() {
+    return Arguments.of(
+        pieceSupplier(Color.BLACK, 2, 4, List.of()),
+        List.of(
+            new Movement(2, 7, true),
+            new Movement(5, 7, true),
+            new Movement(5, 2, true),
+            new Movement(0, 2, true),
+            new Movement(3, 3, false),
+            new Movement(4, 5, false)));
+  }
+
+  private static Arguments sameColorBlocking() {
+    return Arguments.of(
+        pieceSupplier(
+            Color.WHITE,
+            4,
+            4,
             List.of(
-                new Movement(5, 3, true),
-                new Movement(6, 3, true),
-                new Movement(6, 0, true),
-                new Movement(0, 0, true),
-                new Movement(2, 4, false),
-                new Movement(4, 5, false))),
-        Arguments.of(
-            pieceSupplier(Color.BLACK, 2, 4),
+                new OtherPiece(4, 6, Color.WHITE),
+                new OtherPiece(6, 4, Color.WHITE))),
+        List.of(
+            new Movement(4, 6, false),
+            new Movement(4, 7, false),
+            new Movement(6, 4, false),
+            new Movement(7, 4, false),
+            new Movement(4, 2, true),
+            new Movement(4, 0, true)));
+  }
+
+  private static Arguments differentColorCapture() {
+    return Arguments.of(
+        pieceSupplier(
+            Color.BLACK,
+            5,
+            5,
             List.of(
-                new Movement(2, 7, true),
-                new Movement(5, 7, true),
-                new Movement(5, 2, true),
-                new Movement(0, 2, true),
-                new Movement(3, 3, false),
-                new Movement(4, 5, false))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 4, 4, 4, 6, Color.WHITE),
-            List.of(new Movement(4, 6, false))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 4, 4, 4, 6, Color.BLACK), List.of(new Movement(4, 6, true))),
-        Arguments.of(
-            pieceSupplier(Color.BLACK, 5, 5, 2, 5, Color.BLACK),
-            List.of(new Movement(2, 5, false))),
-        Arguments.of(
-            pieceSupplier(Color.BLACK, 5, 5, 2, 5, Color.WHITE), List.of(new Movement(2, 5, true))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 3, 3, 3, 5, Color.WHITE),
-            List.of(new Movement(3, 6, false))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 3, 3, 3, 5, Color.BLACK),
-            List.of(new Movement(3, 6, false))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 3, 3, 5, 3, Color.WHITE),
-            List.of(new Movement(6, 3, false))),
-        Arguments.of(
-            pieceSupplier(Color.WHITE, 3, 3, 5, 3, Color.BLACK),
-            List.of(new Movement(6, 3, false))));
+                new OtherPiece(5, 3, Color.WHITE),
+                new OtherPiece(3, 5, Color.WHITE))),
+        List.of(
+            new Movement(5, 2, false),
+            new Movement(5, 3, true),
+            new Movement(5, 2, true),
+            new Movement(3, 2, true),
+            new Movement(3, 7, false),
+            new Movement(3, 5, true),
+            new Movement(3, 7, true),
+            new Movement(1, 7, true)));
+  }
+
+  static class OtherPiece {
+    final int rank;
+    final int file;
+    final Color color;
+
+    OtherPiece(int rank, int file, Color color) {
+      this.rank = rank;
+      this.file = file;
+      this.color = color;
+    }
   }
 
   private static Supplier<Piece> pieceSupplier(
-      Color color,
-      int initialRank,
-      int initialFile,
-      int otherPieceRank,
-      int otherPieceFile,
-      Color otherPieceColor) {
+      Color rookColor, int rookRank, int rookFile, List<OtherPiece> otherPieces) {
     return () -> {
       final var board = new Board();
-      final var piece = new Pawn(otherPieceColor, otherPieceRank, otherPieceFile, board);
-      board.placePiece(piece);
-      return new Rook(color, initialRank, initialFile, board);
-    };
-  }
 
-  private static Supplier<Piece> pieceSupplier(Color color, int initialRank, int initialFile) {
-    return () -> new Rook(color, initialRank, initialFile, new Board());
+      for (OtherPiece otherPiece : otherPieces) {
+        final var piece = new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
+        board.placePiece(piece);
+      }
+
+      return new Rook(rookColor, rookRank, rookFile, board);
+    };
   }
 }
