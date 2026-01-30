@@ -21,6 +21,20 @@ public class Board {
     return capturedPiece;
   }
 
+  public void placePiece(Piece piece) {
+    final var rank = piece.getCurrentRank();
+    final var file = piece.getCurrentFile();
+    if (!isWithinBounds(rank, file)) {
+      throw new IllegalArgumentException("Placement out of board bounds.");
+    }
+
+    if (board[rank][file] != null) {
+      throw new IllegalArgumentException("Square already occupied.");
+    }
+
+    board[rank][file] = piece;
+  }
+
   private boolean isWithinBounds(int rank, int file) {
     return rank >= 0 && rank < RANKS_SIZE && file >= 0 && file < FILES_SIZE;
   }
