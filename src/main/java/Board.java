@@ -21,6 +21,22 @@ public class Board {
     return capturedPiece;
   }
 
+  public boolean containsPieceBetween(int startRank, int startFile, int endRank, int endFile) {
+    int rankStep = Integer.signum(endRank - startRank);
+    int fileStep = Integer.signum(endFile - startFile);
+    int currentRank = startRank + rankStep;
+    int currentFile = startFile + fileStep;
+
+    while (currentRank != endRank || currentFile != endFile) {
+      if (board[currentRank][currentFile] != null) {
+        return true;
+      }
+      currentRank += rankStep;
+      currentFile += fileStep;
+    }
+    return false;
+  }
+
   public void placePiece(Piece piece) {
     final var rank = piece.getCurrentRank();
     final var file = piece.getCurrentFile();

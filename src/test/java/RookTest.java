@@ -44,9 +44,7 @@ class RookTest extends PieceTestTemplate {
             Color.WHITE,
             4,
             4,
-            List.of(
-                new OtherPiece(4, 6, Color.WHITE),
-                new OtherPiece(6, 4, Color.WHITE))),
+            List.of(new OtherPiece(4, 6, Color.WHITE), new OtherPiece(6, 4, Color.WHITE))),
         List.of(
             new Movement(4, 6, false),
             new Movement(4, 7, false),
@@ -62,9 +60,7 @@ class RookTest extends PieceTestTemplate {
             Color.BLACK,
             5,
             5,
-            List.of(
-                new OtherPiece(5, 3, Color.WHITE),
-                new OtherPiece(3, 5, Color.WHITE))),
+            List.of(new OtherPiece(5, 3, Color.WHITE), new OtherPiece(3, 5, Color.WHITE))),
         List.of(
             new Movement(5, 2, false),
             new Movement(5, 3, true),

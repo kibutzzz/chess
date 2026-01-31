@@ -14,30 +14,11 @@ public class Rook extends Piece {
       return false;
     }
 
-    if (foundPieceAtIntermediatePosition(rank, file, rankDifference, fileDifference)) {
+    if (getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file)) {
       return false;
     }
 
     return isEmptyOrOpponentColor(rank, file);
-  }
-
-  private boolean foundPieceAtIntermediatePosition(
-      int rank, int file, int rankDifference, int fileDifference) {
-    final var rankStep = Integer.signum(rankDifference);
-    final var fileStep = Integer.signum(fileDifference);
-    var intermediateRank = Integer.sum(getCurrentRank(), rankStep);
-    var intermediateFile = Integer.sum(getCurrentFile(), fileStep);
-    while (notYetOnTarget(rank, file, intermediateRank, intermediateFile)) {
-      final var pieceAtIntermediate = getBoard().getPiece(intermediateRank, intermediateFile);
-
-      if (pieceIsFound(pieceAtIntermediate)) {
-        return true;
-      }
-
-      intermediateRank += rankStep;
-      intermediateFile += fileStep;
-    }
-    return false;
   }
 
   private boolean isEmptyOrOpponentColor(int rank, int file) {
@@ -47,11 +28,6 @@ public class Rook extends Piece {
 
   private static boolean pieceIsFound(Piece pieceAtIntermediate) {
     return pieceAtIntermediate != null;
-  }
-
-  private static boolean notYetOnTarget(
-      int rank, int file, int intermediateRank, int intermediateFile) {
-    return intermediateRank != rank || intermediateFile != file;
   }
 
   private static boolean isNotMovingInLine(int rankDifference, int fileDifference) {
