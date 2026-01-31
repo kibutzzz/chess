@@ -7,7 +7,8 @@ import org.junit.jupiter.params.provider.Arguments;
 class BishopTest extends PieceTestTemplate {
 
   static Stream<Arguments> getTestCases() {
-    return Stream.of(whiteBishopDiagonalMovements(), blackBishopDiagonalMovements());
+    return Stream.of(
+        whiteBishopDiagonalMovements(), blackBishopDiagonalMovements(), blockedBySameColorPieces());
   }
 
   private static Arguments whiteBishopDiagonalMovements() {
@@ -34,7 +35,43 @@ class BishopTest extends PieceTestTemplate {
             new Movement(4, 5, false)));
   }
 
+  private static Arguments blockedBySameColorPieces() {
+    return Arguments.of(
+        pieceSupplier(
+            Color.WHITE,
+            3,
+            4,
+            List.of(
+                new OtherPiece(5, 6, Color.WHITE),
+                new OtherPiece(4, 5, Color.WHITE),
+                new OtherPiece(2, 3, Color.WHITE),
+                new OtherPiece(1, 6, Color.WHITE),
+                new OtherPiece(6, 1, Color.WHITE))),
+        List.of(
+            new Movement(5, 6, false),
+            new Movement(6, 7, false),
+            new Movement(4, 5, false),
+            new Movement(2, 6, false),
+            new Movement(1, 5, false),
+            new Movement(7, 0, false),
+            new Movement(0, 3, false),
+            new Movement(5, 2, true),
+            new Movement(6, 3, true),
+            new Movement(3, 6, false)));
+  }
+
   private static Supplier<Piece> pieceSupplier(Color color, int rank, int file) {
     return () -> new Bishop(color, rank, file, new Board());
+  }
+
+  private static Supplier<Piece> pieceSupplier(
+      Color color, int rank, int file, List<OtherPiece> otherPieces) {
+    return () -> {
+      Board board = new Board();
+      for (OtherPiece otherPiece : otherPieces) {
+        new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
+      }
+      return new Bishop(color, rank, file, board);
+    };
   }
 }

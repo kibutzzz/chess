@@ -6,7 +6,13 @@ public class Bishop extends Piece {
 
   @Override
   protected boolean canMoveTo(int rank, int file) {
-    return Math.abs(currentFile - file) == Math.abs(currentRank - rank);
+    if (Math.abs(currentFile - file) != Math.abs(currentRank - rank)) {
+      return false;
+    }
+    if (this.getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file)) {
+      return false;
+    }
+    return isEmptyOrOpponentColor(rank, file);
   }
 
   @Override
