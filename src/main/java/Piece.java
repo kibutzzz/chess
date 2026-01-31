@@ -32,6 +32,11 @@ public abstract class Piece {
     return !pieceIsFound(piece) || piece.getColor() != getColor();
   }
 
+  protected boolean isOpponentPieceAt(int rank, int file) {
+    final var piece = getBoard().getPiece(rank, file);
+    return pieceIsFound(piece) && piece.getColor() != getColor();
+  }
+
   private static boolean pieceIsFound(Piece piece) {
     return piece != null;
   }
