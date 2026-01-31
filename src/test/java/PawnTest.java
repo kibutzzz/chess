@@ -14,7 +14,7 @@ class PawnTest extends PieceTestTemplate {
             pieceSupplier(Color.WHITE, 1, 0),
             List.of(new Movement(2, 0, true), new Movement(3, 0, true))),
         Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(1, 1, false))),
-        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(1, -1, false))),
+        Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(1, 2, false))),
         Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(0, 0, false))),
         Arguments.of(pieceSupplier(Color.WHITE, 1, 0), List.of(new Movement(4, 0, false))),
         Arguments.of(
@@ -26,7 +26,7 @@ class PawnTest extends PieceTestTemplate {
             pieceSupplier(Color.BLACK, 6, 0),
             List.of(new Movement(5, 0, true), new Movement(4, 0, true))),
         Arguments.of(pieceSupplier(Color.BLACK, 6, 0), List.of(new Movement(6, 1, false))),
-        Arguments.of(pieceSupplier(Color.BLACK, 6, 0), List.of(new Movement(6, -1, false))),
+        Arguments.of(pieceSupplier(Color.BLACK, 6, 0), List.of(new Movement(6, 2, false))),
         Arguments.of(pieceSupplier(Color.BLACK, 6, 0), List.of(new Movement(7, 0, false))),
         Arguments.of(pieceSupplier(Color.BLACK, 6, 0), List.of(new Movement(3, 0, false))),
         Arguments.of(

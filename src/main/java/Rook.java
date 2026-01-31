@@ -21,15 +21,6 @@ public class Rook extends Piece {
     return isEmptyOrOpponentColor(rank, file);
   }
 
-  private boolean isEmptyOrOpponentColor(int rank, int file) {
-    final var piece = getBoard().getPiece(rank, file);
-    return !pieceIsFound(piece) || piece.getColor() != getColor();
-  }
-
-  private static boolean pieceIsFound(Piece pieceAtIntermediate) {
-    return pieceAtIntermediate != null;
-  }
-
   private static boolean isNotMovingInLine(int rankDifference, int fileDifference) {
     return rankDifference != 0 && fileDifference != 0;
   }

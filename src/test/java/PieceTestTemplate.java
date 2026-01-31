@@ -35,10 +35,13 @@ abstract class PieceTestTemplate {
   @ParameterizedTest
   @MethodSource("getTestCases")
   void moves(Supplier<Piece> pieceSupplier, List<Movement> movements) {
+    System.out.println("--- Starting new test case ---");
     givenPiece(pieceSupplier.get());
     int currentRank = cut.getCurrentRank();
     int currentFile = cut.getCurrentFile();
 
+    System.out.println("Initial board:");
+    System.out.println(cut.getBoard());
     for (Movement movement : movements) {
       if (movement.expectedToBeValid) {
         whenMovingTo(movement.target.rank, movement.target.file);
@@ -56,6 +59,7 @@ abstract class PieceTestTemplate {
             INVALID_MOVE_MESSAGE_TEMPLATE.formatted(
                 currentRank, currentFile, movement.target.rank, movement.target.file),
             exception.getMessage());
+        System.out.println(exception.getMessage());
         thenPositionIs(currentRank, currentFile);
       }
     }
@@ -66,7 +70,8 @@ abstract class PieceTestTemplate {
   }
 
   private void whenMovingTo(int rank, int file) {
-    cut.moveTo(rank, file);
+    cut.getBoard().movePiece(rank, file, cut);
+    System.out.println(cut.getBoard());
   }
 
   private void thenPositionIs(int expectedRank, int expectedFile) {

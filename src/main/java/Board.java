@@ -16,8 +16,11 @@ public class Board {
       throw new IllegalArgumentException("Move out of board bounds.");
     }
     Piece capturedPiece = board[rank][file];
-    board[rank][file] = piece;
+    final var oldRank = piece.getCurrentRank();
+    final var oldFile = piece.getCurrentFile();
     piece.moveTo(rank, file);
+    board[oldRank][oldFile] = null;
+    board[rank][file] = piece;
     return capturedPiece;
   }
 

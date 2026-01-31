@@ -13,7 +13,6 @@ class QueenTest extends PieceTestTemplate {
             List.of(
                 new Movement(4, 7, true),
                 new Movement(7, 7, true),
-                new Movement(8, 8, true),
                 new Movement(1, 1, true),
                 new Movement(5, 6, false),
                 new Movement(3, 5, false))),

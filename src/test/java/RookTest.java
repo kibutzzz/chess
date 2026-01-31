@@ -78,8 +78,7 @@ class RookTest extends PieceTestTemplate {
       final var board = new Board();
 
       for (OtherPiece otherPiece : otherPieces) {
-        final var piece = new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
-        board.placePiece(piece);
+        new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
       }
 
       return new Rook(rookColor, rookRank, rookFile, board);
