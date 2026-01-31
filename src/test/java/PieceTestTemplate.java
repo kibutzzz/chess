@@ -75,4 +75,16 @@ abstract class PieceTestTemplate {
         () -> assertEquals(expectedRank, cut.getCurrentRank()),
         () -> assertEquals(expectedFile, cut.getCurrentFile()));
   }
+
+  protected static class OtherPiece {
+    final int rank;
+    final int file;
+    final Color color;
+
+    OtherPiece(int rank, int file, Color color) {
+      this.rank = rank;
+      this.file = file;
+      this.color = color;
+    }
+  }
 }

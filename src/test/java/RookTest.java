@@ -72,18 +72,6 @@ class RookTest extends PieceTestTemplate {
             new Movement(1, 7, true)));
   }
 
-  static class OtherPiece {
-    final int rank;
-    final int file;
-    final Color color;
-
-    OtherPiece(int rank, int file, Color color) {
-      this.rank = rank;
-      this.file = file;
-      this.color = color;
-    }
-  }
-
   private static Supplier<Piece> pieceSupplier(
       Color rookColor, int rookRank, int rookFile, List<OtherPiece> otherPieces) {
     return () -> {
