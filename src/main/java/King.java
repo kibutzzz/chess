@@ -10,4 +10,9 @@ public class King extends Piece {
     int fileDiff = Math.abs(currentFile - file);
     return (rankDiff <= 1 && fileDiff <= 1);
   }
+
+  @Override
+  public String getSymbol() {
+    return "K";
+  }
 }

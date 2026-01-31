@@ -35,4 +35,9 @@ public class Pawn extends Piece {
   public void afterMove() {
     isFirstMove = false;
   }
+
+  @Override
+  public String getSymbol() {
+    return "P";
+  }
 }

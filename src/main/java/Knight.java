@@ -15,4 +15,9 @@ public class Knight extends Piece {
 
     return rankDiff == 1 && fileDiff == 2;
   }
+
+  @Override
+  public String getSymbol() {
+    return "N";
+  }
 }

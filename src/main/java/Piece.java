@@ -22,4 +22,6 @@ public abstract class Piece {
   }
 
   protected void afterMove() {}
+
+  public abstract String getSymbol();
 }

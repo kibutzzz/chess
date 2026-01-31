@@ -8,4 +8,9 @@ public class Bishop extends Piece {
   protected boolean canMoveTo(int rank, int file) {
     return Math.abs(currentFile - file) == Math.abs(currentRank - rank);
   }
+
+  @Override
+  public String getSymbol() {
+    return "B";
+  }
 }

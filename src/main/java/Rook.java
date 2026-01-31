@@ -33,4 +33,9 @@ public class Rook extends Piece {
   private static boolean isNotMovingInLine(int rankDifference, int fileDifference) {
     return rankDifference != 0 && fileDifference != 0;
   }
+
+  @Override
+  public String getSymbol() {
+    return "R";
+  }
 }

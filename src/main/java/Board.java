@@ -54,4 +54,19 @@ public class Board {
   private boolean isWithinBounds(int rank, int file) {
     return rank >= 0 && rank < RANKS_SIZE && file >= 0 && file < FILES_SIZE;
   }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int rank = RANKS_SIZE - 1; rank >= 0; rank--) {
+      sb.append(rank + 1).append(" ");
+      for (int file = 0; file < FILES_SIZE; file++) {
+        Piece piece = board[rank][file];
+        sb.append(piece != null ? piece.getSymbol() : ".").append(" ");
+      }
+      sb.append("\n");
+    }
+    sb.append("  a b c d e f g h\n");
+    return sb.toString();
+  }
 }

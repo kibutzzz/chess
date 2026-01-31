@@ -10,4 +10,9 @@ public class Queen extends Piece {
     boolean isStraightMove = currentFile == file || currentRank == rank;
     return isDiagonalMove || isStraightMove;
   }
+
+  @Override
+  public String getSymbol() {
+    return "Q";
+  }
 }
