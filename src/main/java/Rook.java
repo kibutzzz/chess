@@ -14,11 +14,7 @@ public class Rook extends Piece {
       return false;
     }
 
-    if (getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file)) {
-      return false;
-    }
-
-    return isEmptyOrOpponentColor(rank, file);
+    return !getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file);
   }
 
   private static boolean isNotMovingInLine(int rankDifference, int fileDifference) {

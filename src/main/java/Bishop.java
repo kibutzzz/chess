@@ -9,10 +9,7 @@ public class Bishop extends Piece {
     if (Math.abs(currentFile - file) != Math.abs(currentRank - rank)) {
       return false;
     }
-    if (this.getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file)) {
-      return false;
-    }
-    return isEmptyOrOpponentColor(rank, file);
+    return !this.getBoard().containsPieceBetween(getCurrentRank(), getCurrentFile(), rank, file);
   }
 
   @Override

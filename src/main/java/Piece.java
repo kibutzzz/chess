@@ -18,7 +18,7 @@ public abstract class Piece {
   protected abstract boolean canMoveTo(int rank, int file);
 
   protected void moveTo(int rank, int file) {
-    if (!canMoveTo(rank, file)) {
+    if (!canMoveTo(rank, file) || !isEmptyOrOpponentColor(rank, file)) {
       throw new IllegalArgumentException(
           "Invalid move from %dx%d to %dx%d".formatted(currentRank, currentFile, rank, file));
     }
