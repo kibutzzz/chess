@@ -1,6 +1,6 @@
 public class Knight extends Piece {
 
-  public Knight(Color color, int currentFile, int currentRank, Board board) {
+  public Knight(Color color, int currentRank, int currentFile, Board board) {
     super(color, currentFile, currentRank, board);
   }
 

@@ -133,7 +133,7 @@ class KnightTest extends PieceTestTemplate {
   }
 
   private static Supplier<Piece> pieceSupplier(Color color, int initialRank, int initialFile) {
-    return () -> new Knight(color, initialFile, initialRank, new Board());
+    return () -> new Knight(color, initialRank, initialFile, new Board());
   }
 
   private static Supplier<Piece> pieceSupplier(
@@ -143,7 +143,7 @@ class KnightTest extends PieceTestTemplate {
       for (OtherPiece otherPiece : otherPieces) {
         new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
       }
-      return new Knight(color, initialFile, initialRank, board);
+      return new Knight(color, initialRank, initialFile , board);
     };
   }
 }

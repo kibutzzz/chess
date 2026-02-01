@@ -14,6 +14,40 @@ public class Board {
     this.board = new Piece[RANKS_SIZE][FILES_SIZE];
   }
 
+  public void setup() {
+    // Setup pawns
+    for (int file = 0; file < FILES_SIZE; file++) {
+      new Pawn(Color.WHITE, 1, file, this);
+      new Pawn(Color.BLACK, 6, file, this);
+    }
+
+    // Setup rooks
+    new Rook(Color.WHITE, 0, 0, this);
+    new Rook(Color.WHITE, 0, 7, this);
+    new Rook(Color.BLACK, 7, 0, this);
+    new Rook(Color.BLACK, 7, 7, this);
+
+    // Setup knights
+    new Knight(Color.WHITE, 0, 1, this);
+    new Knight(Color.WHITE, 0, 6, this);
+    new Knight(Color.BLACK, 7, 1, this);
+    new Knight(Color.BLACK, 7, 6, this);
+
+    // Setup bishops
+    new Bishop(Color.WHITE, 0, 2, this);
+    new Bishop(Color.WHITE, 0, 5, this);
+    new Bishop(Color.BLACK, 7, 2, this);
+    new Bishop(Color.BLACK, 7, 5, this);
+
+    // Setup queens
+    new Queen(Color.WHITE, 0, 3, this);
+    new Queen(Color.BLACK, 7, 3, this);
+
+    // Setup kings
+    new King(Color.WHITE, 0, 4, this);
+    new King(Color.BLACK, 7, 4, this);
+  }
+
   public Piece getPiece(int rank, int file) {
     return board[rank][file];
   }
@@ -72,7 +106,7 @@ public class Board {
       sb.append(rank + 1).append(" ");
       for (int file = 0; file < FILES_SIZE; file++) {
         Piece piece = board[rank][file];
-        boolean isDarkSquare = (rank + file) % 2 == 1;
+        boolean isDarkSquare = (rank + file) % 2 == 0;
 
         if (piece != null) {
           String symbol = piece.getSymbol();

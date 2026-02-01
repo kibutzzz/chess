@@ -4,6 +4,8 @@
 
 A terminal-based chess game implementation written in Java.
 
+![Chess Game Screenshot](initial.png)
+
 ## Overview
 
 This project implements a chess game engine with object-oriented design principles. The game features a complete chess board representation with all standard chess pieces and their movement rules.

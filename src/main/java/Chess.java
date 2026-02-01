@@ -30,6 +30,15 @@ public class Chess {
     passTurn();
   }
 
+  public void start() {
+    board.setup();
+    displayBoard();
+  }
+
+  private void displayBoard() {
+    System.out.println(board);
+  }
+
   private void passTurn() {
     currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
   }
