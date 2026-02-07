@@ -1,7 +1,5 @@
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 public class BoardRepresentationCalculator {
   private static final String BLACK_TEXT = "\u001B[30m";
@@ -14,7 +12,6 @@ public class BoardRepresentationCalculator {
   private final int ranksSize;
   private final int filesSize;
   private final Piece[][] board;
-
 
   public String calculate() {
     final var sb = new StringBuilder();
@@ -34,7 +31,8 @@ public class BoardRepresentationCalculator {
 
   private String getSquareString(final Piece piece, final boolean isDarkSquare) {
     if (piece == null) {
-      return SQUARE_TEMPLATE.formatted(isDarkSquare ? DARK_SQUARE_BG : WHITE_SQUARE_BG, " ", " ", ANSI_RESET);
+      return SQUARE_TEMPLATE.formatted(
+          isDarkSquare ? DARK_SQUARE_BG : WHITE_SQUARE_BG, " ", " ", ANSI_RESET);
     }
     final var pieceColor = piece.getColor();
     final var pieceSymbol = piece.getSymbol();

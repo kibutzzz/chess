@@ -143,7 +143,7 @@ class KnightTest extends PieceTestTemplate {
       for (OtherPiece otherPiece : otherPieces) {
         new Pawn(otherPiece.color, otherPiece.rank, otherPiece.file, board);
       }
-      return new Knight(color, initialRank, initialFile , board);
+      return new Knight(color, initialRank, initialFile, board);
     };
   }
 }

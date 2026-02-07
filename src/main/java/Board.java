@@ -7,7 +7,8 @@ public class Board {
 
   public Board() {
     this.board = new Piece[RANKS_SIZE][FILES_SIZE];
-    this.boardRepresentationCalcualtor = new BoardRepresentationCalculator(RANKS_SIZE, FILES_SIZE, board);
+    this.boardRepresentationCalcualtor =
+        new BoardRepresentationCalculator(RANKS_SIZE, FILES_SIZE, board);
   }
 
   public void setup() {
