@@ -2,16 +2,12 @@ public class Board {
   public static final int FILES_SIZE = 8;
   public static final int RANKS_SIZE = 8;
 
-  // ANSI color codes
-  private static final String ANSI_BLACK_TEXT = "\u001B[30m";
-  private static final String ANSI_GREEN_BG = "\u001B[42m";
-  private static final String ANSI_WHITE_BG = "\u001B[47m";
-  private static final String ANSI_RESET = "\u001B[0m";
-
   private final Piece[][] board;
+  private final BoardRepresentationCalculator boardRepresentationCalcualtor;
 
   public Board() {
     this.board = new Piece[RANKS_SIZE][FILES_SIZE];
+    this.boardRepresentationCalcualtor = new BoardRepresentationCalculator(RANKS_SIZE, FILES_SIZE, board);
   }
 
   public void setup() {
@@ -101,49 +97,6 @@ public class Board {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (int rank = RANKS_SIZE - 1; rank >= 0; rank--) {
-      sb.append(rank + 1).append(" ");
-      for (int file = 0; file < FILES_SIZE; file++) {
-        Piece piece = board[rank][file];
-        boolean isDarkSquare = (rank + file) % 2 == 0;
-
-        if (piece != null) {
-          String symbol = piece.getSymbol();
-          if (isDarkSquare) {
-            if (piece.getColor() == Color.BLACK) {
-              sb.append(ANSI_GREEN_BG)
-                  .append(ANSI_BLACK_TEXT)
-                  .append(" ")
-                  .append(symbol)
-                  .append(" ")
-                  .append(ANSI_RESET);
-            } else {
-              sb.append(ANSI_GREEN_BG).append(" ").append(symbol).append(" ").append(ANSI_RESET);
-            }
-          } else {
-            if (piece.getColor() == Color.BLACK) {
-              sb.append(ANSI_WHITE_BG)
-                  .append(ANSI_BLACK_TEXT)
-                  .append(" ")
-                  .append(symbol)
-                  .append(" ")
-                  .append(ANSI_RESET);
-            } else {
-              sb.append(ANSI_WHITE_BG).append(" ").append(symbol).append(" ").append(ANSI_RESET);
-            }
-          }
-        } else {
-          if (isDarkSquare) {
-            sb.append(ANSI_GREEN_BG).append("   ").append(ANSI_RESET);
-          } else {
-            sb.append(ANSI_WHITE_BG).append("   ").append(ANSI_RESET);
-          }
-        }
-      }
-      sb.append("\n");
-    }
-    sb.append("   a  b  c  d  e  f  g  h\n");
-    return sb.toString();
+    return boardRepresentationCalcualtor.calculate();
   }
 }

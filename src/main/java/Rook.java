@@ -22,7 +22,7 @@ public class Rook extends Piece {
   }
 
   @Override
-  public String getSymbol() {
-    return "R";
+  public char getSymbol() {
+    return 'R';
   }
 }

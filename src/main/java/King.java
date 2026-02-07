@@ -12,7 +12,7 @@ public class King extends Piece {
   }
 
   @Override
-  public String getSymbol() {
-    return "K";
+  public char getSymbol() {
+    return 'K';
   }
 }

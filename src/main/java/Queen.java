@@ -12,7 +12,7 @@ public class Queen extends Piece {
   }
 
   @Override
-  public String getSymbol() {
-    return "Q";
+  public char getSymbol() {
+    return 'Q';
   }
 }
