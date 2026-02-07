@@ -53,7 +53,7 @@ public class Board {
   }
 
   public Piece movePiece(int rank, int file, Piece piece) {
-    if (!isWithinBounds(rank, file)) {
+    if (isOutOfBounds(rank, file)) {
       throw new IllegalArgumentException("Move out of board bounds.");
     }
     Piece capturedPiece = board[rank][file];
@@ -84,7 +84,7 @@ public class Board {
   public void placePiece(Piece piece) {
     final var rank = piece.getCurrentRank();
     final var file = piece.getCurrentFile();
-    if (!isWithinBounds(rank, file)) {
+    if (isOutOfBounds(rank, file)) {
       throw new IllegalArgumentException("Placement out of board bounds.");
     }
 
@@ -95,8 +95,8 @@ public class Board {
     board[rank][file] = piece;
   }
 
-  private boolean isWithinBounds(int rank, int file) {
-    return rank >= 0 && rank < RANKS_SIZE && file >= 0 && file < FILES_SIZE;
+  private boolean isOutOfBounds(int rank, int file) {
+    return rank < 0 || rank >= RANKS_SIZE || file < 0 || file >= FILES_SIZE;
   }
 
   @Override
